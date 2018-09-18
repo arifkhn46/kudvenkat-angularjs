@@ -17,6 +17,8 @@ export class CreateEmployeeComponent implements OnInit {
 
   datePickerConfig: Partial<BsDatepickerConfig>;
 
+  searchTerm: string;
+
   departments: Department[] = [
     {id: 1, name: 'Help Desk'},
     {id: 2, name: 'HR'},
@@ -51,7 +53,9 @@ export class CreateEmployeeComponent implements OnInit {
   }
 
   saveEmployee(): void {
-    this._employeeService.save(this.employee);
+    const newEmployee: Employee = Object.assign({}, this.employee);
+    this._employeeService.save(newEmployee);
+    this.createEmployeeForm.reset();
     this._router.navigate(['list']);
   }
 
